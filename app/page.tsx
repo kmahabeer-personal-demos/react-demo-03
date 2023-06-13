@@ -1,8 +1,10 @@
-import { CarCard, Hero, Searchbar } from '@/components';
+import { CarCard, Hero, Searchbar, Filter } from '@/components';
+import { HomeProps } from '@/types';
 import { fetchCars } from '@/utils';
+import { fuels, yearsOfProduction } from '@/constants';
 import Image from 'next/image';
 
-export default async function Home({ searchParams }) {
+export default async function Home({ searchParams }: HomeProps) {
 	const allCars = await fetchCars({
 		manufacturer: searchParams.manufacturer || '',
 		year: searchParams.year || 2022,
@@ -21,7 +23,10 @@ export default async function Home({ searchParams }) {
 				</div>
 				<div className='home__filters'>
 					<Searchbar />
-					<div className='home__filter-container'></div>
+					<div className='home__filter-container'>
+						<Filter title='fuel' options={fuels} />
+						<Filter title='year' options={yearsOfProduction} />
+					</div>
 				</div>
 				{!isDataEmpty ? (
 					<section>
