@@ -1,4 +1,4 @@
-import { CarCard, Hero, Searchbar, Filter } from '@/components';
+import { CarCard, Hero, Searchbar, Filter, ShowMore } from '@/components';
 import { HomeProps } from '@/types';
 import { fetchCars } from '@/utils';
 import { fuels, yearsOfProduction } from '@/constants';
@@ -35,6 +35,11 @@ export default async function Home({ searchParams }: HomeProps) {
 								<CarCard car={car} key={car} />
 							))}
 						</div>
+
+						<ShowMore
+							pageNumber={(searchParams.limit || 10) / 10}
+							isNext={(searchParams.limit || 10) > allCars.length}
+						/>
 					</section>
 				) : (
 					<div className='home__error-container'>
